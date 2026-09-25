@@ -1,19 +1,25 @@
 package com.example.lab1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -35,6 +41,9 @@ public class Book {
     @JoinColumn(name = "pub_id")
     private Publisher publisher;
 
+    @ManyToMany(mappedBy = "books")
+    List<Category> categories = new ArrayList<>();
+
     // public Book(Integer id, String name, String price, Auth auth, Publisher
     // publisher) {
     // this.id = id;
@@ -46,8 +55,4 @@ public class Book {
 
     // public Book() {
     // }
-    @Override
-    public String toString() {
-        return "Book {" + id + ", " + name + " ," + price + ", " + auth + ", " + publisher + " }";
-    }
 }
