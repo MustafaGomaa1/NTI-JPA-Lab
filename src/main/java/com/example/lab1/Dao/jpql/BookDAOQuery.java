@@ -41,4 +41,12 @@ public class BookDAOQuery {
                 .setParameter("id", authId).getSingleResult();
     }
 
+    public static Book findBookByTitle(String title) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Book> criteriaQuery = criteriaBuilder.createQuery(Book.class);
+        Root<Book> book = criteriaQuery.from(Book.class);
+
+        criteriaQuery.select(book).where(criteriaBuilder.equal(book.get("title"), title));
+        return entityManager.createQuery(criteriaQuery).getSingleResult();
+    }
 }
